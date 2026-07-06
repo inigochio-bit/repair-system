@@ -1,13 +1,565 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>報修系統</title>
-    <script type="module" crossorigin src="/assets/index-DSNaoawe.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DCsKNNlr.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>設備報修系統</title>
+<script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=9_HjX3_evKr6oEwNWh6MvBcPm01OXccx2Y7QOjTiaaIhr7WJw5zm6DISP03CxCE3oRwota1H6gjjhN_hUPaUjE3Fiq2dT4eSW5Z_Da9bM21bFXnbyIK7rW9yik_Mp9a9YcUG0oO6xmMWRr6vV0Y4GPAwglJW2FGSjzGbB0iVzS8aH0ynUzF3aEbmUjVe0MveFrSniRtlLmfzS4ol8awW0jjN3IHlaMap4j-YWHtJvFGsqyLK5oqCyZpRR43dsksk60xtCMeJZbQPe94CP98-9MbHjAJryPBeXAq5vtk3J3KMET4LC2BMsfa9rC7jmQbu9zD7FD9Jly0TaU3F9GFKCNOVsbdIjXUJ7EwvKflSggqDES8NkQqzWYRFn6Dhm_BMS-kFT_8NtHcohYiu3PHbIBVjCXcKRC5J75zkJUXYnclL3YdAitsJugN4efqpv_gBlLRfvl4UE8qYeVCWPF3ntBQY66Ft1DfYrKol1zSEkJho_a06dsQnrJyz_SsAoGIgCxL7Kqbs7jWeopM7f9IsDWAqCHbac_z26DD8CrzByJLJkeoYQljlHJYrE9y8r-Zfd8CI-FxlsBYBiUPo89vpF02aFq8VCt90TBVAMzlfZmB-gOJQpoUAkTaDITrKa7p42pk7ndNEZmKxvVkgAXwCBzO-BlwMjZK29OUhTka6W8sQyWPlPwBEA14lUKwkJ7iON6OrJGBZzFQJgLrNCzjCLPdEDGd5XMnWmOiAC4t4nI3q438XwDGs9xxDtLLsvwpX" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://me.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9wcm9kLWNoYXQta2ltaS50b3MtY24tYmVpamluZy52b2xjZXMuY29tL2tpbWktZnMvb2tjL3l6dHBiazN6eDJweHkvb3V0cHV0LyVFNSVBMCVCMSVFNCVCRiVBRSVFNyVCMyVCQiVFNyVCNSVCMS5odG1sP1gtVG9zLUFsZ29yaXRobT1UT1M0LUhNQUMtU0hBMjU2JlgtVG9zLUNyZWRlbnRpYWw9QUtMVFlUSmxOamd3TWpZMlpEQmtOREZpWW1JNVlXTmlaREJsWm1GbVlqSXpaVEElMmYyMDI2MDcwNiUyZmNuLWJlaWppbmclMmZ0b3MlMmZyZXF1ZXN0JlgtVG9zLURhdGU9MjAyNjA3MDZUMDQ1MDUxWiZYLVRvcy1FeHBpcmVzPTUxODQwMCZYLVRvcy1TaWduYXR1cmU9ZDBkODA5NzY4NmZhZTM5YzFlZjlkMzJlMTkzNjVkYmNkYmZjMWE1NDZmODU2NDYyZmNhZDljMGUyOWRiNDM5MiZYLVRvcy1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC1kaXNwb3NpdGlvbj1hdHRhY2htZW50JTNiJTIwZmlsZW5hbWUlMmElM2RVVEYtOCUyNyUyNyUyNUU1JTI1QTAlMjVCMSUyNUU0JTI1QkYlMjVBRSUyNUU3JTI1QjMlMjVCQiUyNUU3JTI1QjUlMjVCMS5odG1s"/><script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+  * { font-family: 'Noto Sans TC', sans-serif; }
+  .tab-active { border-bottom: 3px solid #2563eb; color: #2563eb; font-weight: 600; }
+  .tab-inactive { border-bottom: 3px solid transparent; color: #6b7280; }
+  .tab-inactive:hover { color: #374151; }
+  .card { background: white; border-radius: 12px; border: 1px solid #e5e7eb; padding: 16px; }
+  .input { width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+  .input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+  .btn-primary { width: 100%; padding: 14px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+  .btn-primary:hover { background: #1d4ed8; }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-green { background: #16a34a; }
+  .btn-green:hover { background: #15803d; }
+  .btn-blue { background: #2563eb; padding: 8px 16px; font-size: 14px; width: auto; }
+  .btn-blue:hover { background: #1d4ed8; }
+  .btn-outline { background: white; color: #374151; border: 1px solid #d1d5db; padding: 8px 16px; font-size: 14px; width: auto; }
+  .btn-outline:hover { background: #f9fafb; }
+  .btn-sm { padding: 6px 12px; font-size: 13px; width: auto; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 500; }
+  .badge-amber { background: #fef3c7; color: #b45309; }
+  .badge-blue { background: #dbeafe; color: #1d4ed8; }
+  .badge-green { background: #dcfce7; color: #15803d; }
+  .photo-btn { flex: 1; height: 80px; border: 2px dashed #d1d5db; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: all 0.2s; background: white; }
+  .photo-btn:hover { border-color: #2563eb; background: #eff6ff; }
+  .photo-btn svg { width: 24px; height: 24px; color: #2563eb; }
+  .photo-btn span { font-size: 13px; color: #6b7280; }
+  .repair-card { background: white; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden; transition: box-shadow 0.2s; }
+  .repair-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .green-border { border-color: #bbf7d0; }
+  .detail-row { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #4b5563; }
+  .detail-row svg { width: 16px; height: 16px; color: #9ca3af; flex-shrink: 0; }
+  .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); padding: 12px 24px; border-radius: 8px; color: white; font-size: 14px; font-weight: 500; z-index: 9999; transition: transform 0.3s ease; pointer-events: none; white-space: nowrap; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast-success { background: #16a34a; }
+  .toast-error { background: #dc2626; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: none; align-items: center; justify-content: center; padding: 16px; }
+  .modal-overlay.active { display: flex; }
+  .modal-content { background: white; border-radius: 16px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; animation: modalIn 0.2s ease; }
+  @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+  .search-box { position: relative; }
+  .search-box svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #9ca3af; }
+  .search-box input { padding-left: 38px; }
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .filter-btn { padding: 6px 14px; border-radius: 6px; font-size: 14px; border: 1px solid #d1d5db; background: white; cursor: pointer; transition: all 0.2s; }
+  .filter-btn.active { background: #2563eb; color: white; border-color: #2563eb; }
+  .filter-btn:not(.active):hover { background: #f9fafb; }
+  .empty-state { text-align: center; padding: 48px 16px; }
+  .empty-state svg { width: 48px; height: 48px; color: #9ca3af; margin-bottom: 12px; }
+  .empty-state h3 { font-size: 16px; font-weight: 600; color: #374151; margin-bottom: 4px; }
+  .empty-state p { font-size: 14px; color: #9ca3af; }
+  .repair-note-box { background: #f0fdf4; color: #166534; padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-top: 8px; }
+  .desc-box { background: #f9fafb; padding: 12px; border-radius: 8px; font-size: 14px; color: #374151; margin-top: 8px; }
+  @media (max-width: 640px) {
+    .max-w-3xl { max-width: 100%; }
+    .px-4 { padding-left: 12px; padding-right: 12px; }
+  }
+</style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Header -->
+<header class="bg-white border-b shadow-sm sticky top-0 z-50">
+  <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
+    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    </div>
+    <div>
+      <h1 class="text-lg font-bold text-gray-900 leading-tight">設備報修系統</h1>
+      <p class="text-xs text-gray-500">Equipment Repair System</p>
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="max-w-3xl mx-auto px-4 py-4">
+  <!-- Tabs -->
+  <div class="flex bg-white rounded-xl mb-4 overflow-hidden shadow-sm">
+    <button class="flex-1 py-3 text-sm tab-active transition-all" onclick="showTab('form')" id="tab-form">
+      <div class="flex items-center justify-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+        填寫報修
+      </div>
+    </button>
+    <button class="flex-1 py-3 text-sm tab-inactive transition-all" onclick="showTab('list')" id="tab-list">
+      <div class="flex items-center justify-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+        報修列表
+      </div>
+    </button>
+    <button class="flex-1 py-3 text-sm tab-inactive transition-all" onclick="showTab('archive')" id="tab-archive">
+      <div class="flex items-center justify-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        已修好存檔
+      </div>
+    </button>
+  </div>
+
+  <!-- Tab: Form -->
+  <div id="view-form">
+    <div class="card">
+      <h2 class="text-base font-bold text-gray-900 mb-4">填寫報修單</h2>
+      <form id="repairForm" onsubmit="submitForm(event)">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">報修人姓名 <span class="text-red-500">*</span></label>
+            <input type="text" id="reporterName" class="input" placeholder="請輸入您的姓名" autocomplete="name">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">設備名稱 <span class="text-red-500">*</span></label>
+            <input type="text" id="deviceName" class="input" placeholder="例如：冷氣機、打印機、電腦...">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">設備位置 <span class="text-red-500">*</span></label>
+            <input type="text" id="location" class="input" placeholder="例如：1室">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">問題描述 <span class="text-red-500">*</span></label>
+            <textarea id="description" class="input resize-none" rows="4" placeholder="請描述設備的問題情況..."></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">設備照片</label>
+            <input type="file" id="photoInput" accept="image/*" capture="environment" class="hidden" onchange="handlePhoto(this)">
+            <div id="photoPreviewArea">
+              <div class="flex gap-3">
+                <button type="button" class="photo-btn" onclick="document.getElementById('photoInput').click()">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  <span>拍照</span>
+                </button>
+                <button type="button" class="photo-btn" onclick="document.getElementById('photoInput').click()">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>選擇圖片</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">
+            <svg class="w-5 h-5 inline mr-1" style="vertical-align:-2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+            提交報修單
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tab: List -->
+  <div id="view-list" style="display:none;">
+    <div class="flex gap-2 mb-4 flex-wrap" id="listFilters">
+      <button class="filter-btn active" onclick="setListFilter('all')" data-filter="all">全部</button>
+      <button class="filter-btn" onclick="setListFilter('pending')" data-filter="pending">待處理</button>
+      <button class="filter-btn" onclick="setListFilter('repairing')" data-filter="repairing">維修中</button>
+    </div>
+    <div id="repairListContainer"></div>
+  </div>
+
+  <!-- Tab: Archive -->
+  <div id="view-archive" style="display:none;">
+    <div class="search-box mb-4">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <input type="text" id="archiveSearch" class="input" placeholder="搜索設備名稱、位置、報修人..." oninput="renderArchive()">
+    </div>
+    <div id="archiveContainer"></div>
+  </div>
+</main>
+
+<!-- Complete Modal -->
+<div id="completeModal" class="modal-overlay" onclick="if(event.target===this)closeCompleteModal()">
+  <div class="modal-content">
+    <div class="p-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">標記為已修好</h3>
+      <div id="completeModalInfo" class="text-sm text-gray-600 mb-4"></div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1.5">維修情況記錄（選填）</label>
+        <textarea id="completeNotes" class="input resize-none" rows="4" placeholder="請記錄維修情況，例如：更換了什麼零件、做了什麼處理..."></textarea>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn-outline flex-1" onclick="closeCompleteModal()">取消</button>
+        <button class="btn-primary btn-green flex-1" onclick="confirmComplete()">
+          <svg class="w-4 h-4 inline mr-1" style="vertical-align:-2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          確認已修好
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div id="detailModal" class="modal-overlay" onclick="if(event.target===this)closeDetailModal()">
+  <div class="modal-content">
+    <div id="detailModalBody" class="p-6"></div>
+  </div>
+</div>
+
+<script>
+// ===================== Data Store =====================
+const STORAGE_KEY = 'repair_data_v1';
+let currentPhoto = '';
+let completeId = null;
+let listFilter = 'all';
+
+function loadData() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch { return []; }
+}
+
+function saveData(items) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
+
+function generateId() {
+  return Date.now();
+}
+
+// ===================== Photo Handling =====================
+function handlePhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    compressImage(e.target.result, 800, 0.7, function(compressed) {
+      currentPhoto = compressed;
+      showPhotoPreview(compressed);
+      showToast('照片已添加', 'success');
+    });
+  };
+  reader.readAsDataURL(file);
+}
+
+function compressImage(dataUrl, maxWidth, quality, callback) {
+  const img = new Image();
+  img.onload = function() {
+    if (img.width <= maxWidth) { callback(dataUrl); return; }
+    const canvas = document.createElement('canvas');
+    const scale = maxWidth / img.width;
+    canvas.width = maxWidth;
+    canvas.height = img.height * scale;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    callback(canvas.toDataURL('image/jpeg', quality));
+  };
+  img.onerror = function() { callback(dataUrl); };
+  img.src = dataUrl;
+}
+
+function showPhotoPreview(dataUrl) {
+  document.getElementById('photoPreviewArea').innerHTML = `
+    <div style="position:relative;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;">
+      <img src="${dataUrl}" style="width:100%;max-height:256px;object-fit:contain;display:block;">
+      <button type="button" onclick="removePhoto()" style="position:absolute;top:8px;right:8px;width:32px;height:32px;background:#dc2626;color:white;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>`;
+}
+
+function removePhoto() {
+  currentPhoto = '';
+  document.getElementById('photoInput').value = '';
+  document.getElementById('photoPreviewArea').innerHTML = `
+    <div class="flex gap-3">
+      <button type="button" class="photo-btn" onclick="document.getElementById('photoInput').click()">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span>拍照</span>
+      </button>
+      <button type="button" class="photo-btn" onclick="document.getElementById('photoInput').click()">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+        <span>選擇圖片</span>
+      </button>
+    </div>`;
+}
+
+// ===================== Form =====================
+function submitForm(e) {
+  e.preventDefault();
+  const reporterName = document.getElementById('reporterName').value.trim();
+  const deviceName = document.getElementById('deviceName').value.trim();
+  const location = document.getElementById('location').value.trim();
+  const description = document.getElementById('description').value.trim();
+
+  if (!reporterName || !deviceName || !location || !description) {
+    showToast('請填寫所有必填項目', 'error'); return;
+  }
+
+  const items = loadData();
+  items.unshift({
+    id: generateId(),
+    reporterName, deviceName, location, description,
+    photoData: currentPhoto,
+    status: 'pending',
+    repairNotes: '',
+    completedAt: null,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  });
+  saveData(items);
+
+  // Reset form
+  document.getElementById('repairForm').reset();
+  removePhoto();
+  showToast('報修單提交成功！', 'success');
+  showTab('list');
+}
+
+// ===================== Tabs =====================
+function showTab(tab) {
+  ['form', 'list', 'archive'].forEach(t => {
+    document.getElementById('view-' + t).style.display = t === tab ? '' : 'none';
+    const btn = document.getElementById('tab-' + t);
+    btn.className = 'flex-1 py-3 text-sm transition-all ' + (t === tab ? 'tab-active' : 'tab-inactive');
+  });
+  if (tab === 'list') renderList();
+  if (tab === 'archive') renderArchive();
+}
+
+// ===================== List =====================
+function setListFilter(filter) {
+  listFilter = filter;
+  document.querySelectorAll('#listFilters .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filter);
+  });
+  renderList();
+}
+
+function getStatusBadge(status) {
+  if (status === 'pending') return '<span class="badge badge-amber"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>待處理</span>';
+  if (status === 'repairing') return '<span class="badge badge-blue"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>維修中</span>';
+  return '';
+}
+
+function renderList() {
+  const items = loadData().filter(r => r.status !== 'completed');
+  const filtered = listFilter === 'all' ? items : items.filter(r => r.status === listFilter);
+  const container = document.getElementById('repairListContainer');
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="empty-state">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <h3>目前沒有待處理的報修單</h3>
+          <p>所有設備都正常運作中！</p>
+          <button class="filter-btn" style="margin-top:12px;color:#2563eb;border-color:#2563eb;" onclick="showTab('archive')">查看已修好記錄 →</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = '<div class="grid gap-3">' + filtered.map(r => `
+    <div class="repair-card">
+      <div class="p-4">
+        <div class="flex items-start justify-between mb-2">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              ${getStatusBadge(r.status)}
+              <span class="text-xs text-gray-400">#${String(r.id).slice(-4)}</span>
+            </div>
+            <h3 class="text-base font-semibold text-gray-900">${esc(r.deviceName)}</h3>
+          </div>
+          <button class="btn-outline btn-sm" onclick="openDetail(${r.id})">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </button>
+        </div>
+        <div class="grid grid-cols-2 gap-1.5 mb-3">
+          <div class="detail-row"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>${esc(r.reporterName)}</div>
+          <div class="detail-row"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${esc(r.location)}</div>
+          <div class="detail-row col-span-2"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>${fmtDate(r.createdAt)}</div>
+        </div>
+        ${r.photoData ? `<div class="mb-3"><img src="${r.photoData}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;cursor:pointer;" onclick="openDetail(${r.id})"></div>` : ''}
+        <div class="desc-box line-clamp-2 mb-3">${esc(r.description)}</div>
+        <div class="flex gap-2">
+          ${r.status === 'pending' ? `<button class="btn-primary btn-blue flex-1" onclick="startRepair(${r.id})"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>開始維修</button>` : ''}
+          ${r.status === 'repairing' ? `<button class="btn-primary btn-green flex-1" onclick="openCompleteModal(${r.id})"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>標記已修好</button>` : ''}
+          <button class="btn-outline" onclick="deleteRepair(${r.id})">刪除</button>
+        </div>
+      </div>
+    </div>
+  `).join('</div>') + '</div>';
+}
+
+// ===================== Archive =====================
+function renderArchive() {
+  const search = document.getElementById('archiveSearch').value.toLowerCase();
+  const items = loadData().filter(r => r.status === 'completed');
+  const filtered = items.filter(r => {
+    if (!search) return true;
+    return r.deviceName.toLowerCase().includes(search) ||
+      r.location.toLowerCase().includes(search) ||
+      r.reporterName.toLowerCase().includes(search) ||
+      r.description.toLowerCase().includes(search) ||
+      (r.repairNotes && r.repairNotes.toLowerCase().includes(search));
+  }).sort((a, b) => {
+    const ta = a.completedAt ? new Date(a.completedAt).getTime() : 0;
+    const tb = b.completedAt ? new Date(b.completedAt).getTime() : 0;
+    return tb - ta;
+  });
+
+  const container = document.getElementById('archiveContainer');
+
+  let html = '';
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div class="card">
+        <div class="empty-state">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+          <h3>暫無已修好的記錄</h3>
+          <p>修好後的報修單會自動存檔在這裡</p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  html += `<p class="text-sm text-gray-500 mb-3">共 <strong class="text-gray-700">${filtered.length}</strong> 筆已修好記錄</p>`;
+
+  if (filtered.length === 0) {
+    html += `<div class="card" style="text-align:center;padding:32px;color:#9ca3af;">沒有符合搜索條件的記錄</div>`;
+  } else {
+    html += '<div class="grid gap-3">' + filtered.map(r => `
+      <div class="repair-card green-border cursor-pointer" onclick="openDetail(${r.id})">
+        <div class="p-4">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="badge badge-green"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>已修好</span>
+                <span class="text-xs text-gray-400">#${String(r.id).slice(-4)}</span>
+              </div>
+              <h3 class="text-base font-semibold text-gray-900">${esc(r.deviceName)}</h3>
+            </div>
+            ${r.photoData ? `<img src="${r.photoData}" style="width:64px;height:64px;object-fit:cover;border-radius:8px;">` : ''}
+          </div>
+          <div class="grid grid-cols-2 gap-1.5 text-sm text-gray-600">
+            <div class="detail-row"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>${esc(r.reporterName)}</div>
+            <div class="detail-row"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${esc(r.location)}</div>
+            <div class="detail-row col-span-2"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>修好時間：${fmtDate(r.completedAt)}</div>
+          </div>
+          ${r.repairNotes ? `<div class="repair-note-box line-clamp-2"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px;display:inline;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${esc(r.repairNotes)}</div>` : ''}
+        </div>
+      </div>
+    `).join('') + '</div>';
+  }
+  container.innerHTML = html;
+}
+
+// ===================== Actions =====================
+function startRepair(id) {
+  const items = loadData();
+  const item = items.find(r => r.id === id);
+  if (item) { item.status = 'repairing'; item.updatedAt = new Date().toISOString(); saveData(items); renderList(); showToast('已標記為維修中', 'success'); }
+}
+
+function openCompleteModal(id) {
+  completeId = id;
+  const items = loadData();
+  const item = items.find(r => r.id === id);
+  if (!item) return;
+  document.getElementById('completeModalInfo').innerHTML = `<p><strong>設備：</strong>${esc(item.deviceName)}</p><p><strong>位置：</strong>${esc(item.location)}</p>`;
+  document.getElementById('completeNotes').value = '';
+  document.getElementById('completeModal').classList.add('active');
+}
+
+function closeCompleteModal() {
+  document.getElementById('completeModal').classList.remove('active');
+  completeId = null;
+}
+
+function confirmComplete() {
+  if (!completeId) return;
+  const notes = document.getElementById('completeNotes').value.trim();
+  const items = loadData();
+  const item = items.find(r => r.id === completeId);
+  if (item) {
+    item.status = 'completed';
+    item.repairNotes = notes;
+    item.completedAt = new Date().toISOString();
+    item.updatedAt = new Date().toISOString();
+    saveData(items);
+  }
+  closeCompleteModal();
+  renderList();
+  showToast('已標記為修好，自動存檔！', 'success');
+}
+
+function deleteRepair(id) {
+  if (!confirm('確定要刪除這張報修單嗎？')) return;
+  const items = loadData().filter(r => r.id !== id);
+  saveData(items);
+  renderList();
+  showToast('已刪除', 'success');
+}
+
+// ===================== Detail Modal =====================
+function openDetail(id) {
+  const items = loadData();
+  const r = items.find(x => x.id === id);
+  if (!r) return;
+  const isCompleted = r.status === 'completed';
+  let html = `
+    <h3 class="text-lg font-bold text-gray-900 mb-4">${isCompleted ? '已修好記錄詳情' : '報修單詳情'}</h3>
+    <div class="mb-3">${isCompleted ? '<span class="badge badge-green"><svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>已修好</span>' : getStatusBadge(r.status)}</div>
+    <div class="space-y-1.5 text-sm mb-4">
+      <p><strong class="text-gray-700">設備名稱：</strong>${esc(r.deviceName)}</p>
+      <p><strong class="text-gray-700">報修人：</strong>${esc(r.reporterName)}</p>
+      <p><strong class="text-gray-700">位置：</strong>${esc(r.location)}</p>
+      <p><strong class="text-gray-700">報修時間：</strong>${fmtDate(r.createdAt)}</p>
+      ${isCompleted ? `<p><strong class="text-gray-700">修好時間：</strong>${fmtDate(r.completedAt)}</p>` : ''}
+    </div>
+    ${r.photoData ? `<img src="${r.photoData}" style="width:100%;max-height:300px;object-fit:contain;border-radius:8px;margin-bottom:16px;display:block;">` : '<div style="display:flex;align-items:center;justify-content:center;height:120px;background:#f9fafb;border-radius:8px;margin-bottom:16px;color:#9ca3af;font-size:14px;">無照片</div>'}
+    <div class="mb-3">
+      <strong class="text-gray-700 text-sm">問題描述：</strong>
+      <div class="desc-box">${esc(r.description)}</div>
+    </div>
+    ${r.repairNotes ? `<div class="mb-4"><strong class="text-gray-700 text-sm">維修記錄：</strong><div class="repair-note-box">${esc(r.repairNotes)}</div></div>` : ''}
+  `;
+  if (!isCompleted) {
+    if (r.status === 'pending') {
+      html += `<button class="btn-primary btn-blue w-full" onclick="closeDetailModal();startRepair(${r.id});"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>開始維修</button>`;
+    } else if (r.status === 'repairing') {
+      html += `<button class="btn-primary btn-green w-full" onclick="closeDetailModal();openCompleteModal(${r.id});"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>標記已修好</button>`;
+    }
+  }
+  document.getElementById('detailModalBody').innerHTML = html;
+  document.getElementById('detailModal').classList.add('active');
+}
+
+function closeDetailModal() {
+  document.getElementById('detailModal').classList.remove('active');
+}
+
+// ===================== Utils =====================
+function esc(s) {
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function fmtDate(s) {
+  if (!s) return '';
+  try {
+    const d = new Date(s);
+    return d.toLocaleString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  } catch { return s; }
+}
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast toast-' + type + ' show';
+  setTimeout(() => { t.classList.remove('show'); }, 2500);
+}
+
+// ===================== Init =====================
+showTab('form');
+</script>
+</body>
 </html>
